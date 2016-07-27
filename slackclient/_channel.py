@@ -26,7 +26,7 @@ class Channel(object):
     def __repr__(self):
         return self.__str__()
 
-    def send_message(self, message):
+    def send_message(self, message, **kwargs):
         '''
         Sends a message to a this Channel.
 
@@ -37,4 +37,5 @@ class Channel(object):
             None
         '''
         message_json = {"type": "message", "channel": self.id, "text": message}
+        message_json.update(kwargs)
         self.server.send_to_websocket(message_json)
