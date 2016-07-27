@@ -126,8 +126,10 @@ class Server(object):
         except:
             self.rtm_connect(reconnect=True)
 
-    def ping(self):
-        return self.send_to_websocket({"type": "ping"})
+    def ping(self, **kwargs):
+        message_json = {"type": "ping"}
+        message_json.update(kwargs)
+        return self.send_to_websocket(message_json)
 
     def websocket_safe_read(self):
         """ Returns data if available, otherwise ''. Newlines indicate multiple
